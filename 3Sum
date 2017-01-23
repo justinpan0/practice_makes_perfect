@@ -1,0 +1,44 @@
+    //Time limit exceeded
+    int find(vector<int>& nums, int st, int n){
+        int size = nums.size();
+        for(int i = st+1; i < size; i++){
+            if(nums.at(i) == n){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    bool findSame(vector<vector<int> > res, vector <int> ans){
+        int size = res.size();
+        for(int i = 0; i < size; i++){
+            if(res.at(i) == ans){
+                return false;
+            }
+        }
+        return true;
+    }
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector <int> > res;
+        vector<int> ans(3,0);
+        int first, second, third;
+        int size = nums.size();
+        for(int i = 0; i < size-1; ++i){
+            first = nums.at(i);
+            //cout << "i " << i << endl;
+            for(int j = i+1; j < size; ++j){
+                //cout << "j " << j << endl;
+                second = nums.at(j);
+                third = find(nums, j, -first-second);
+                //cout << "t " << third << endl;
+                if(third+1){
+                    ans.at(0)=first;
+                    ans.at(1)=second;
+                    ans.at(2)=nums.at(third);
+                    if(findSame(res, ans)) res.push_back(ans);
+                }
+            }
+        }
+        return res;
+    }
