@@ -42,3 +42,42 @@
         }
         return res;
     }
+    
+    // Faster than 29.09%
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector <int> > res;
+        vector<int> ans(3,0);
+        int first, second, third;
+        int size = nums.size();
+        for(int i = 0; i < size-1; ++i){
+            first = nums.at(i);
+            //cout << "i " << i << endl;
+            for(int j = i+1; j < size; ++j){
+                //cout << "j " << j << endl;
+                second = nums.at(j);
+                third = -1;
+                //cout << "t " << third << endl;
+                for(int k = j+1; k < size; k++){
+                    int temp = nums.at(k);
+                    if(temp == -first-second){
+                        third = k;
+                        break;
+                    }
+                    while(k < size && nums.at(k) == temp) k++;
+                    k--;
+                }    
+                if(third+1){
+                    ans.at(0)=first;
+                    ans.at(1)=second;
+                    ans.at(2)=nums.at(third);
+                    res.push_back(ans);
+                }
+                while(i < size-1 && nums.at(i) == first) i++;
+                i--;
+                while(j < size && nums.at(j) == second) j++;
+                j--;
+            }
+        }
+        return res;
+    }
