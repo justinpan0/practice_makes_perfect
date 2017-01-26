@@ -1,0 +1,38 @@
+  // My solution
+   int threeSumClosest(vector<int>& nums, int target) {
+        if(nums.size() <= 3){
+            return nums.at(0) + nums.at(1) + nums.at(2);
+        }
+        sort(nums.begin(),nums.end());
+        int mini, want, left, right, diff = 1000, size = nums.size();
+        for(int i = 0; i < size-2; ++i){
+            for(int j = i+1; j < size-1; ++j){
+                for(int k = j+1; k < size; ++k){
+                    want = target - nums[i] - nums[j];
+                    if(k == size-1){
+                        mini = left = want - nums[k];
+                    } else if(want > nums[k]){
+                        while(k < size-2 && want > nums[k]) ++k;
+                        left = want - nums[k];
+                        right = want - nums[k+1];
+                        mini = min(left, -right);
+                    } else if (want == nums[k]) {
+                        return target;
+                    } else {
+                        left = want - nums[k];
+                        mini = -left;
+                    }
+                    if(mini == 0){
+                        return target;
+                    } else if (abs(mini) < diff) {   
+                        if(abs(mini) == abs(left)) diff = left;
+                        else diff = right;
+                    } 
+                    while(k < size-1 && nums[k] == nums[k+1]) ++k;
+                }
+                while(j < size-2 && nums[j] == nums[j+1]) ++j;
+            }
+            while(i < size-3 && nums[i] == nums[i+1]) ++i;
+        }
+        return target - diff;
+    }
