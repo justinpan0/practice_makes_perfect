@@ -1,0 +1,41 @@
+   //69%
+   vector<vector<int>> fourSum(vector<int>& nums, int target) {
+
+        sort(nums.begin(), nums.end());
+        vector<vector <int>> res;
+        vector<int> aux;
+        if(nums.size() < 4){
+            return res;
+        }
+        int candidate, size = nums.size(), first, second, third, fourth;
+        for(int i = 0; i < size-3; i++){
+            first = nums[i];
+            for(int j = i+1; j < size-2; j++){
+                second = nums[j];
+                int k = j+1, l = size-1;
+                while(k < l){
+                    third = nums[k];
+                    fourth = nums[l];
+                    candidate = first + second + third + fourth;
+                    //cout << candidate << endl;
+                    //cout << nums[i] << " " << nums[j] << " " << nums[k] << " " << nums[l] << endl;
+                    
+                    if (candidate < target) k++;
+                    else if (candidate > target) l--;
+                    else{
+                        vector<int> aux;
+                        aux.push_back(first);
+                        aux.push_back(second);
+                        aux.push_back(third);
+                        aux.push_back(fourth);
+                        res.push_back(aux);
+                        while(k < l && fourth == nums[l]) l--;
+                        while(k < l && third == nums[k]) k++;
+                    }
+                }
+                while(j < size-3 && second == nums[j+1]) j++;
+            }
+            while(i < size-4 && first == nums[i+1]) i++;
+        }
+        return res;
+    }
