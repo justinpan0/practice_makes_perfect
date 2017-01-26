@@ -1,5 +1,5 @@
-   //69%
-   vector<vector<int>> fourSum(vector<int>& nums, int target) {
+   //73%
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
 
         sort(nums.begin(), nums.end());
         vector<vector <int>> res;
@@ -10,8 +10,10 @@
         int candidate, size = nums.size(), first, second, third, fourth;
         for(int i = 0; i < size-3; i++){
             first = nums[i];
+            if(first+nums[i+1]+nums[i+2]+nums[i+3] > target) break; //B/c sorted, if its bigger than target already, then no point to continue
             for(int j = i+1; j < size-2; j++){
                 second = nums[j];
+                if(first+second+nums[j+1]+nums[j+2] > target) break; //B/c sorted, if its bigger than target already, then no point to continue
                 int k = j+1, l = size-1;
                 while(k < l){
                     third = nums[k];
@@ -29,8 +31,8 @@
                         aux.push_back(third);
                         aux.push_back(fourth);
                         res.push_back(aux);
-                        while(k < l && fourth == nums[l]) l--;
-                        while(k < l && third == nums[k]) k++;
+                        while(k < l && fourth == nums[l]) l--; //Find the next nonduplicate
+                        while(k < l && third == nums[k]) k++; 
                     }
                 }
                 while(j < size-3 && second == nums[j+1]) j++;
