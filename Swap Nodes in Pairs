@@ -1,0 +1,20 @@
+    //13.6%
+    ListNode* swapPairs(ListNode* head) {
+        if(head == nullptr)  return nullptr;
+        ListNode* start = head;
+        while(head != nullptr && head->next !=nullptr){
+            swapOne(head, head->next);
+            //cout << head << " ";
+            head = head->next;
+            if(head == nullptr) return start;
+            head = head->next;
+            //cout << head << endl;
+        }
+        return start;
+    }
+    
+    void swapOne(ListNode* &first, ListNode* &second){
+        int tmp = first->val;
+        first->val = second->val;
+        second->val = tmp;
+    }
