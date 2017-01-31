@@ -16,3 +16,8 @@ frequencies.reverse!
 frequencies.each do |word, count|
     puts word + " " + count.to_s
 end
+
+// Sort in descending order
+fruits = ["orange", "apple", "banana", "pear", "grapes"]
+
+fruits.sort! {|first, second| second <=> first}
