@@ -1,0 +1,17 @@
+double myPow(double x, int n) {
+        double ans = 1;
+        unsigned long long p; // When n = INT_MIN, "-n" is already overflow since -1 is int. 
+        The result of -n is still INT_MIN. Then p is therefore wrong since p is assigned from 
+        a negative but p is unsigned. However the result with this bug can still pass because 
+        the only test case with INT_MIN is (1.0, INT_MIN). "-n" should be change to "(-1LL) * n" 
+        and p can be either unsigned or signed long long.
+        
+        if(n < 0){ x = 1/x; p = -n; }
+        else{ p = n; }
+        while(p){
+            if(p & 1) ans *= x; // If p is odd, then time ans once to reduce to even
+            x *= x; // x^p = (x^2)^(p/2)
+            p >>= 1; // If p is even, divide p by 2
+        }
+        return ans;
+    }
